@@ -1,48 +1,13 @@
 diff --git a/dist/app/components/error-404.vue b/dist/app/components/error-404.vue
-index 67d32a9a931cd174dedd1d04c62add378518fbe0..289b35e8c20474020cd7bfed89beeeef548173c2 100644
+index 67d32a9a931cd174dedd1d04c62add378518fbe0..0cb90d0be2bded76e252a5bda2249ebb526d7904 100644
 --- a/dist/app/components/error-404.vue
 +++ b/dist/app/components/error-404.vue
-@@ -15,7 +15,7 @@ const props = defineProps({
-   },
-   statusMessage: {
-     type: String,
--    default: "Not Found"
-+    default: ""
-   },
-   description: {
-     type: String,
 @@ -23,7 +23,7 @@ const props = defineProps({
    },
    backHome: {
      type: String,
 -    default: "Go back home"
-+    default: ""
++    default: "atoms was here"
    }
  })
  useHead({
-diff --git a/dist/core/runtime/nitro/error.js b/dist/core/runtime/nitro/error.js
-index 8382558d863acb925ab5ca159464d0da00740a67..90377f727187bd7a2521dcc76badb35e6b11b684 100644
---- a/dist/core/runtime/nitro/error.js
-+++ b/dist/core/runtime/nitro/error.js
-@@ -10,7 +10,7 @@ export default (async function errorhandler(error, event) {
-     statusCode,
-     statusMessage,
-     message,
--    stack: import.meta.dev && statusCode !== 404 ? `<pre>${stack.map((i) => `<span class="stack${i.internal ? " internal" : ""}">${i.text}</span>`).join("\n")}</pre>` : "",
-+    stack: "",
-     // TODO: check and validate error.data for serialisation into query
-     data: error.data
-   };
-diff --git a/dist/core/runtime/nitro/renderer.js b/dist/core/runtime/nitro/renderer.js
-index eff2fb9d7ec3c7282891db442759a355d4bc21fe..7ae9ad96e34fc73749a95afa66dc02304c0d6807 100644
---- a/dist/core/runtime/nitro/renderer.js
-+++ b/dist/core/runtime/nitro/renderer.js
-@@ -139,7 +139,7 @@ export default defineRenderHandler(async (event) => {
-   if (ssrError && !("__unenv__" in event.node.req)) {
-     throw createError({
-       statusCode: 404,
--      statusMessage: "Page Not Found: /__nuxt_error"
-+      statusMessage: ""
-     });
-   }
-   const isRenderingIsland = componentIslands && event.path.startsWith("/__nuxt_island");
