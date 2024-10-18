@@ -1,24 +1,48 @@
-diff --git a/config.js b/config.js
-index a063cde6ed7b3650f36db2b2c6b1267cb1c230e2..cb6c72704acf6142cc10362717eb653d812379ee 100644
---- a/config.js
-+++ b/config.js
-@@ -1,4 +1,6 @@
- function defineNuxtConfig (config) {
-+  console.log('defineNuxtConfig, atoms')
-+
-   return config
- }
- 
-diff --git a/dist/app/middleware/manifest-route-rule.js b/dist/app/middleware/manifest-route-rule.js
-index 16609ea580ddc7dee0b68f54f7e025a9a6fc3430..f870f8a2ce59a5859efb4bcd0afb415474182952 100644
---- a/dist/app/middleware/manifest-route-rule.js
-+++ b/dist/app/middleware/manifest-route-rule.js
-@@ -2,6 +2,8 @@ import { hasProtocol } from "ufo";
- import { defineNuxtRouteMiddleware } from "../composables/router.js";
- import { getRouteRules } from "../composables/manifest.js";
- export default defineNuxtRouteMiddleware(async (to) => {
-+  console.log('manifest-route-rule, atoms')
-+  
-   if (import.meta.server || import.meta.test) {
-     return;
+diff --git a/dist/app/components/error-404.vue b/dist/app/components/error-404.vue
+index 67d32a9a931cd174dedd1d04c62add378518fbe0..289b35e8c20474020cd7bfed89beeeef548173c2 100644
+--- a/dist/app/components/error-404.vue
++++ b/dist/app/components/error-404.vue
+@@ -15,7 +15,7 @@ const props = defineProps({
+   },
+   statusMessage: {
+     type: String,
+-    default: "Not Found"
++    default: ""
+   },
+   description: {
+     type: String,
+@@ -23,7 +23,7 @@ const props = defineProps({
+   },
+   backHome: {
+     type: String,
+-    default: "Go back home"
++    default: ""
    }
+ })
+ useHead({
+diff --git a/dist/core/runtime/nitro/error.js b/dist/core/runtime/nitro/error.js
+index 8382558d863acb925ab5ca159464d0da00740a67..90377f727187bd7a2521dcc76badb35e6b11b684 100644
+--- a/dist/core/runtime/nitro/error.js
++++ b/dist/core/runtime/nitro/error.js
+@@ -10,7 +10,7 @@ export default (async function errorhandler(error, event) {
+     statusCode,
+     statusMessage,
+     message,
+-    stack: import.meta.dev && statusCode !== 404 ? `<pre>${stack.map((i) => `<span class="stack${i.internal ? " internal" : ""}">${i.text}</span>`).join("\n")}</pre>` : "",
++    stack: "",
+     // TODO: check and validate error.data for serialisation into query
+     data: error.data
+   };
+diff --git a/dist/core/runtime/nitro/renderer.js b/dist/core/runtime/nitro/renderer.js
+index eff2fb9d7ec3c7282891db442759a355d4bc21fe..7ae9ad96e34fc73749a95afa66dc02304c0d6807 100644
+--- a/dist/core/runtime/nitro/renderer.js
++++ b/dist/core/runtime/nitro/renderer.js
+@@ -139,7 +139,7 @@ export default defineRenderHandler(async (event) => {
+   if (ssrError && !("__unenv__" in event.node.req)) {
+     throw createError({
+       statusCode: 404,
+-      statusMessage: "Page Not Found: /__nuxt_error"
++      statusMessage: ""
+     });
+   }
+   const isRenderingIsland = componentIslands && event.path.startsWith("/__nuxt_island");
