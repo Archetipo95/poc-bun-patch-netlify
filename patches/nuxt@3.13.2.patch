@@ -1,0 +1,24 @@
+diff --git a/config.js b/config.js
+index a063cde6ed7b3650f36db2b2c6b1267cb1c230e2..cb6c72704acf6142cc10362717eb653d812379ee 100644
+--- a/config.js
++++ b/config.js
+@@ -1,4 +1,6 @@
+ function defineNuxtConfig (config) {
++  console.log('defineNuxtConfig, atoms')
++
+   return config
+ }
+ 
+diff --git a/dist/app/middleware/manifest-route-rule.js b/dist/app/middleware/manifest-route-rule.js
+index 16609ea580ddc7dee0b68f54f7e025a9a6fc3430..f870f8a2ce59a5859efb4bcd0afb415474182952 100644
+--- a/dist/app/middleware/manifest-route-rule.js
++++ b/dist/app/middleware/manifest-route-rule.js
+@@ -2,6 +2,8 @@ import { hasProtocol } from "ufo";
+ import { defineNuxtRouteMiddleware } from "../composables/router.js";
+ import { getRouteRules } from "../composables/manifest.js";
+ export default defineNuxtRouteMiddleware(async (to) => {
++  console.log('manifest-route-rule, atoms')
++  
+   if (import.meta.server || import.meta.test) {
+     return;
+   }
